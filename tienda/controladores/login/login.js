@@ -108,8 +108,12 @@ export function mostrarUsuario(email){
      * 2- Deberá capturar del dom la clase .btnRegister y asignarle el texto "Logout" y a este elemento asignarle el valor
      *    "#logout" sobre el atributo href.
      **/
+    const botonLogin = document.querySelector('.btnLogin')
+    const botonRegister = document.querySelector('.btnRegister')
     
-
+    botonLogin.textContent = email
+    botonRegister.textContent = 'Logout'
+    botonRegister.href = '#logout'
 }
 
 function mostrarMensaje(msj) {
