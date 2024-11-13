@@ -65,7 +65,15 @@ async function  ingresar(e){
      *     b- Llamar a la función mostrarUsuario, pasandole como parámetro el texto del email de la cuenta.  
      * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
      */
-   
+    e.preventDefault()
+    const id = usuarioExiste()
+    if (!id){
+        mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente')
+        return
+    }
+
+    setUsuarioAutenticado(true, id)
+    mostrarUsuario(inputEmail)
 
 }
 
