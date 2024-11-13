@@ -54,7 +54,8 @@ export async function login(){
     /** 3- Esta función se encarga de llamar a la función crearFormulario y de enlazar el evento submit del formulario de login
      * 
     */
-    
+    crearFormulario(false)
+    formulario.addEventListener('submit', ingresar)
 }  
 
 export async function register(){
