@@ -107,7 +107,7 @@ async function  ingresar(e){
     }
 
     setUsuarioAutenticado(true, id)
-    mostrarUsuario(inputEmail)
+    mostrarUsuario(inputEmail.value)
 
 }
 
@@ -124,12 +124,12 @@ async function  registrarUsuario(e){
      * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.  
      */
     e.preventDefault()
-    if (inputPassword !== inputRepetirPass){
+    if (inputPassword.value !== inputRepetirPass.value){
         mostrarMensaje('Las contraseñas ingresadas no son iguales')
         return
     }
 
-    usuariosServices.crear(null, null, inputEmail, inputPassword, 'img/usuarios/default/anonymous.png', null, null, null, null, 'user')
+    usuariosServices.crear(null, null, inputEmail.value, inputPassword.value, 'img/usuarios/default/anonymous.png', null, null, null, null, 'user')
     mostrarMensaje('Email registrado')
     window.location.href = '#login'
 }
@@ -142,7 +142,7 @@ async function usuarioExiste() {
      * 3- Si el email y la contraseña no son válido devuelve falso.    
      */
     const usuarios = usuariosServices.listar()
-    const id = usuarios.find(usuario => (usuario.email === inputEmail && usuario.password === inputPassword))?.id
+    const id = usuarios.find(usuario => (usuario.email === inputEmail.value && usuario.password === inputPassword.value))?.id
     return id ? id : false
 
 }
@@ -177,7 +177,7 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
     try {
         sessionStorage.setItem('autenticado', booleano)
         sessionStorage.setItem('idUsuario', idUsuario)
-        sessionStorage.setItem('email', inputEmail) 
+        sessionStorage.setItem('email', inputEmail.value) 
     }
     catch(error) {
         console.error('Error al tratar de guardar la información en el sessionStorage: ' + error)
