@@ -144,6 +144,11 @@ export function getUsuarioAutenticado() {
      * autenticado, idUsuario y email.
      * 2- Luego los devolverá como resultado.
      */
+    const usuario = {
+        autenticado: sessionStorage.getItem('autenticado'),
+        idUsuario: sessionStorage.getItem('idUsuario'),
+        email: sessionStorage.getItem('email')
+    }
     
-       
+    return usuario
 }
