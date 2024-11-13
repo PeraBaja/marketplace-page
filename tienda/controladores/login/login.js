@@ -65,7 +65,8 @@ export async function register(){
       *     Por último enlaza el evento submit del formulario a la función registrarUsuario.
      * 
     */
-   
+    crearFormulario(true)
+    formulario.addEventListener('submit', registrarUsuario)
 }  
 
 
