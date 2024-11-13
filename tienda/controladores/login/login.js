@@ -81,8 +81,15 @@ async function  registrarUsuario(e){
      *    se muestre la pantalla de login. 
      * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.  
      */
-   
-    
+    e.preventDefault()
+    if (inputPassword !== inputRepetirPass){
+        mostrarMensaje('Las contraseñas ingresadas no son iguales')
+        return
+    }
+
+    usuariosServices.crear(null, null, inputEmail, inputPassword, 'img/usuarios/default/anonymous.png', null, null, null, null, 'user')
+    mostrarMensaje('Email registrado')
+    window.location.href = '#login'
 }
 async function usuarioExiste() {
     /**
