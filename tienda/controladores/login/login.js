@@ -129,9 +129,14 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
      * 2- Los valores de los mismos serán tomados de los dos parámetros recibidos y el email será tomado desde la variable
      *    inputEmail.
      */
-    
-
-
+    try {
+        sessionStorage.setItem('autenticado', booleano)
+        sessionStorage.setItem('idUsuario', idUsuario)
+        sessionStorage.setItem('email', inputEmail) 
+    }
+    catch(error) {
+        console.error('Error al tratar de guardar la información en el sessionStorage: ' + error)
+    }   
 }
 export function getUsuarioAutenticado() {
     /**
