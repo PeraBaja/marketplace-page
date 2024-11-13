@@ -100,13 +100,9 @@ async function usuarioExiste() {
      * 3- Si el email y la contraseña no son válido devuelve falso.    
      */
     const usuarios = usuariosServices.listar()
-    usuarios.forEach(usuario => {
-        if (usuario.email === inputEmail && usuario.password === inputPassword){
-            return id
-        }
-    });
-    
-    return false
+    const id = usuarios.find(usuario => (usuario.email === inputEmail && usuario.password === inputPassword))
+    return id ? id : false
+
 }
 
 export function mostrarUsuario(email){
