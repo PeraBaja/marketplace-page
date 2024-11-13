@@ -96,7 +96,14 @@ function crearFormulario(registrar){
     inputEmail = document.querySelector('#loginEmail')
     inputPassword = document.querySelector('#loginPassword')
     inputRepetirPass = document.querySelector('#reLoginPassword')
-    inputRepetirPass.style.display = registrar ? 'block' : 'none'
+    if (registrar){
+        
+        inputRepetirPass.style.display = 'block'
+    } 
+    else {
+        inputRepetirPass.remove()
+    }
+    
 
     formulario = document.querySelector('.formLogin')
 } 
@@ -158,7 +165,7 @@ async function usuarioExiste() {
      * 3- Si el email y la contraseña no son válido devuelve falso.    
      */
     const usuarios = await usuariosServices.listar()
-    const id = usuarios.find(usuario => (usuario.email === inputEmail.value && usuario.password === inputPassword.value))?.id
+    const id = usuarios.find(usuario => (usuario.correo === inputEmail.value && usuario.password === inputPassword.value))?.id
     return id ? id : false
 
 }
