@@ -114,7 +114,7 @@ async function  ingresar(e){
      * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
      */
     e.preventDefault()
-    const id = usuarioExiste()
+    const id = await usuarioExiste()
     if (!id){
         mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente')
         return
@@ -155,7 +155,7 @@ async function usuarioExiste() {
      * 2- Si el email y la contraseña son válidos devuelve el id de usuario.
      * 3- Si el email y la contraseña no son válido devuelve falso.    
      */
-    const usuarios = usuariosServices.listar()
+    const usuarios = await usuariosServices.listar()
     const id = usuarios.find(usuario => (usuario.email === inputEmail.value && usuario.password === inputPassword.value))?.id
     return id ? id : false
 
