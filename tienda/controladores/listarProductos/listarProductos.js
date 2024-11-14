@@ -76,7 +76,27 @@ export async function listarProductos(){
      /* 4- SE DEBERA ASIGNAR EL RESULTADO DE FUNCION ANTERIOR AL ELEMENTO DEL DOM .seccionProductos */
      /* 5- LUEGO DEBERÁ LLAMAR UNA FUNCION, asignarProducto, QUE RECIBA COMO PARAMETRO EL ID DE LA CATEGORIA  */
      /* 6- FIN DEL BUCLE Y FIN DE LA FUNCION */   
+    try {
 
+        const seccionProductos = document.querySelector(".seccionProductos");
+        const categorias = await categoriasServices.listar();
+        // console.log("Categorías recibidas:", categorias);
+        
+        let htmlCategorias = '';
+
+        for (let categoria of categorias) {
+            htmlCategorias += htmlCategoria(categoria.id, categoria.descripcion);
+        }
+        if (seccionProductos) {
+            seccionProductos.innerHTML = htmlCategorias;
+        
+            for (let categoria of categorias) {
+                await asignarProducto(categoria.id);
+            }
+        } 
+    }   catch (error) {
+        console.log("Error al listar productos", error)    
+    }  
      
 }  
 
