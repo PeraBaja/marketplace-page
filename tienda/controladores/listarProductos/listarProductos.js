@@ -31,7 +31,15 @@ function htmlItemProducto(id, imagen, nombre, precio){
      *   let cadena = `Hola, ${titulo} Claudia  en que podemos ayudarla`;
      *   
     */
-    
+    const html = `
+         <div class="item-producto">
+            <img src="${imagen}">
+            <p class="producto_nombre" name="${nombre}">${nombre}</p>
+            <p class="producto_precio">${precio}</p>
+            <a href="?idProducto=${id}#vistaProducto" type="button" class="producto_enlace">Ver producto</a>
+        </div>
+    `;
+    return html;
 
 
 }
