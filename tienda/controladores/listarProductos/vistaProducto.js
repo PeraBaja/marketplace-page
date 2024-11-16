@@ -13,7 +13,29 @@ export async function vistaProducto(){
      * 6-El resultado de la función deberá asignarse al elemento .vistaProducto capturado previamente.
      * 7-Se deberá capturar el elemento html correspondiente al anchor btnComprar y enlazar el evento click a la función registrarCompra.  
     */
-   
+    const elementoCarrusel = document.querySelector('.carrusel');
+    const elementoSeccionProducto = document.querySelector('.seccionProducto');
+    const elementoSeccionLogin = document.querySelector('.seccionLogin');
+
+    elementoCarrusel.innerHTML = '';
+    elementoSeccionProducto.innerHTML = '';
+    elementoSeccionLogin.innerHTML = '';
+
+    const elementoVistaProducto = document.querySelector('.vistaProducto');
+    const idProducto = leerParametro('idProducto')
+
+    const producto = await productosServices.obtenerProductoPorId(idProducto);
+
+    const productoHTML = htmlVistaProducto(producto);
+
+    elementoVistaProducto.innerHTML = productoHTML;
+
+    const botonComprar = document.querySelector('#btnComprar');
+    if (botonComprar) {
+        botonComprar.addEventListener('click', () => {
+            registrarCompra(idProducto);
+        })
+    }
 }
 
 function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
