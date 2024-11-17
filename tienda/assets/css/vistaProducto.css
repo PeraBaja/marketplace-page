@@ -14,6 +14,10 @@
     
 }
 
+img{
+    height: 415px;
+    width: 420px;
+}
 
 .vistaProducto .texto{
     flex: 3 1  ;

@@ -30,7 +30,7 @@ export async function vistaProducto(){
             producto.nombre,
             producto.descripcion,
             producto.precio,
-            producto.imagen
+            producto.foto
         );
 
     /* 6-El resultado de la función deberá asignarse al elemento .vistaProducto capturado previamente.*/
