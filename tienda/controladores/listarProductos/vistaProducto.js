@@ -22,7 +22,7 @@ export async function vistaProducto(){
      if (!idProducto) return console.error("ID de producto no encontrado en la URL");
      /* 4-Luego se deberán leer los datos del producto indentificado con el idProducto recuperado.*/
      try {
-        const producto = await productosServices.obtenerProductoPorId(idProducto);
+        const producto = await productosServices.listar(idProducto);
         if (!producto) throw new Error("Producto no encontrado");
     /* 5-Llamar a la función htmlVistaProducto.*/
         const htmlProducto = htmlVistaProducto(

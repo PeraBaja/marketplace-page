@@ -55,7 +55,7 @@ async function asignarProducto(id){
         console.log(productos)
         let htmlProductos = '';
         productos.forEach(producto => {
-            htmlProductos += htmlItemProducto(producto.id, producto.imagen, producto.nombre, producto.precio);
+            htmlProductos += htmlItemProducto(producto.id, producto.foto, producto.nombre, producto.precio);
         });
         const contenedorCategoria = document.querySelector(`[data-idCategoria="${id}"] .productos`);
         if (contenedorCategoria) {
