@@ -4,7 +4,41 @@ import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 /**1- Se debe asignar a la siguiente constante todo el código correspondiente al componente de login (/asset/modulos/login.html)  */
 const htmlLogin=
 `
-    ASIGNAR EL COMPONENTE CORRESPONDIENTE!!!!
+    <div class="contenedorLogin">
+    <div class="cajaLogin">
+        <p >Iniciar sesión</p>
+
+        <form  class="formLogin" >
+
+            <div class="input-group">
+                
+                <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
+                
+            </div>
+
+            <div class="input-group">
+                
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
+            
+            </div>
+
+            <div class="input-group">
+                
+                <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
+            
+            </div>
+                        
+            <div class="row">
+                                
+                <div class="col-4">
+                <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
+                </div>
+                    
+            </div>
+        </form>
+            
+    </div>
+</div>
 `;
 /*2-Se deben definir 4 variables globales al módulo, una para el formulario html, y otras tres para los inputs de email, contraseña y 
 *   repetir contraseña
@@ -20,7 +54,8 @@ export async function login(){
     /** 3- Esta función se encarga de llamar a la función crearFormulario y de enlazar el evento submit del formulario de login
      * 
     */
-    
+    crearFormulario(false)
+    formulario.addEventListener('submit', ingresar)
 }  
 
 export async function register(){
@@ -30,7 +65,8 @@ export async function register(){
       *     Por último enlaza el evento submit del formulario a la función registrarUsuario.
      * 
     */
-   
+    crearFormulario(true)
+    formulario.addEventListener('submit', registrarUsuario)
 }  
 
 
@@ -48,7 +84,28 @@ function crearFormulario(registrar){
      *    el input reLoginPassword se mostrará en pantalla.
      * 7- Por último se deberá capturar el formulario indentificado con la clase .formLogin y asignarlo a la variable global formulario.
      */
+    const carrusel = document.querySelector('.carrusel')
+    const seccionProductos = document.querySelector('.seccionProductos')
+    const vistaProducto = document.querySelector('.vistaProducto')
+    carrusel.style.display = 'none'
+    seccionProductos.style.display = 'none'
+    vistaProducto.style.display = 'none'
+
+    const seccionLogin = document.querySelector('.seccionLogin')
+    seccionLogin.innerHTML = htmlLogin
+    inputEmail = document.querySelector('#loginEmail')
+    inputPassword = document.querySelector('#loginPassword')
+    inputRepetirPass = document.querySelector('#reLoginPassword')
+    if (registrar){
+        
+        inputRepetirPass.style.display = 'block'
+    } 
+    else {
+        inputRepetirPass.remove()
+    }
     
+
+    formulario = document.querySelector('.formLogin')
 } 
 
 async function  ingresar(e){
@@ -65,7 +122,15 @@ async function  ingresar(e){
      *     b- Llamar a la función mostrarUsuario, pasandole como parámetro el texto del email de la cuenta.  
      * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
      */
-   
+    e.preventDefault()
+    const id = await usuarioExiste()
+    if (!id){
+        mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente')
+        return
+    }
+
+    setUsuarioAutenticado(true, id)
+    mostrarUsuario(inputEmail.value)
 
 }
 
@@ -81,8 +146,15 @@ async function  registrarUsuario(e){
      *    se muestre la pantalla de login. 
      * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.  
      */
-   
-    
+    e.preventDefault()
+    if (inputPassword.value !== inputRepetirPass.value){
+        mostrarMensaje('Las contraseñas ingresadas no son iguales')
+        return
+    }
+
+    usuariosServices.crear(null, null, inputEmail.value, inputPassword.value, 'img/usuarios/default/anonymous.png', null, null, null, null, 'user')
+    mostrarMensaje('Email registrado')
+    window.location.href = '#login'
 }
 async function usuarioExiste() {
     /**
@@ -92,7 +164,10 @@ async function usuarioExiste() {
      * 2- Si el email y la contraseña son válidos devuelve el id de usuario.
      * 3- Si el email y la contraseña no son válido devuelve falso.    
      */
-    
+    const usuarios = await usuariosServices.listar()
+    const id = usuarios.find(usuario => (usuario.correo === inputEmail.value && usuario.password === inputPassword.value))?.id
+    return id ? id : false
+
 }
 
 export function mostrarUsuario(email){
@@ -101,8 +176,12 @@ export function mostrarUsuario(email){
      * 2- Deberá capturar del dom la clase .btnRegister y asignarle el texto "Logout" y a este elemento asignarle el valor
      *    "#logout" sobre el atributo href.
      **/
+    const botonLogin = document.querySelector('.btnLogin')
+    const botonRegister = document.querySelector('.btnRegister')
     
-
+    botonLogin.textContent = email
+    botonRegister.textContent = 'Logout'
+    botonRegister.href = '#logout'
 }
 
 function mostrarMensaje(msj) {
@@ -118,9 +197,14 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
      * 2- Los valores de los mismos serán tomados de los dos parámetros recibidos y el email será tomado desde la variable
      *    inputEmail.
      */
-    
-
-
+    try {
+        sessionStorage.setItem('autenticado', booleano)
+        sessionStorage.setItem('idUsuario', idUsuario)
+        sessionStorage.setItem('email', inputEmail.value) 
+    }
+    catch(error) {
+        console.error('Error al tratar de guardar la información en el sessionStorage: ' + error)
+    }   
 }
 export function getUsuarioAutenticado() {
     /**
@@ -128,6 +212,11 @@ export function getUsuarioAutenticado() {
      * autenticado, idUsuario y email.
      * 2- Luego los devolverá como resultado.
      */
+    const usuario = {
+        autenticado: sessionStorage.getItem('autenticado'),
+        idUsuario: sessionStorage.getItem('idUsuario'),
+        email: sessionStorage.getItem('email')
+    }
     
-       
+    return usuario
 }
