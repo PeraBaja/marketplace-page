@@ -59,6 +59,7 @@ export async function Carrusel(){
     dot3.addEventListener('click', () => currentSlide(3));
 
     showSlides(slideIndex);
+    desplazamientoAutomatico();
 }
 function nextSlide(){
     changeSlide(1);
@@ -94,4 +95,7 @@ function showSlides(n) {
     
     slides[slideIndex-1].classList.add("active");
     dots[slideIndex-1].classList.add("active-dot");
+}
+function desplazamientoAutomatico() {
+    setInterval(() => changeSlide(1), 5000);
 }
