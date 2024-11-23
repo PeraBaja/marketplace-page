@@ -133,7 +133,7 @@ async function  ingresar(e){
 
     setUsuarioAutenticado(true, id)
     mostrarUsuario(inputEmail.value)
-
+    window.location.href = ''
 }
 
 async function  registrarUsuario(e){
