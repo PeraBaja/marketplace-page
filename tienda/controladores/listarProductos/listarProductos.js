@@ -50,24 +50,26 @@ async function asignarProducto(id){
     /*3- EN EL INTERIOR DEL BUCLE DEBERA LLAMAR A LA FUNCION htmlItemProducto y acumular su resultado en una cadena de caracteres */
     /*4- LUEGO DEL BUCLE Y CON LA CADENA RESULTANTE SE DEBE CAPTURAR EL ELEMENTO DEL DOM PARA ASIGNAR ESTOS PRODUCTOS DENTRO DE LA CATEGORIA CORRESPONDIENTE */
     /*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/ 
-    try{
-        const productos = await productosServices.listar()
-        console.log(productos)
+    try {
+        const productos = await productosServices.listar();
+        
+        const productosDeCategoria = productos.filter(producto => producto.idCategoria === id);
+
         let htmlProductos = '';
-        productos.forEach(producto => {
-            htmlProductos += htmlItemProducto(producto.id, producto.imagen, producto.nombre, producto.precio);
+        productosDeCategoria.forEach(producto => {
+            htmlProductos += htmlItemProducto(producto.id, producto.foto, producto.nombre, producto.precio);
         });
+
         const contenedorCategoria = document.querySelector(`[data-idCategoria="${id}"] .productos`);
+
         if (contenedorCategoria) {
             contenedorCategoria.innerHTML = htmlProductos;
         }
+
     } catch (error) {
         console.log("Error al asignar productos: ", error);
     }
-     
-        
-
-} 
+}
 export async function listarProductos(){
     /************************** .
      /* 1- ESTA FUNCION DEBERA SELECCIONAR DESDE DEL DOM  LA CLASE .seccionProductos. */
