@@ -4,16 +4,48 @@ import { ventasServices } from "../../../servicios/ventas-servicios.js";
 import { getUsuarioAutenticado } from "../login/login.js";
 
 export async function vistaProducto(){
-    /**1-En esta función se deben capturar los elementos html: .carrusel, .seccionProducto, .seccionLogin. Para luego 
-     * blanquear su contenido. 
-     * 2-Se deberá capturar el elemento .vistaProducto.
-     * 3-Se deberá llamar a la función leerParametro para recuperar de la url el idProducto. 
-     * 4-Luego se deberán leer los datos del producto indentificado con el idProducto recuperado.
-     * 5-Llamar a la función htmlVistaProducto.
-     * 6-El resultado de la función deberá asignarse al elemento .vistaProducto capturado previamente.
-     * 7-Se deberá capturar el elemento html correspondiente al anchor btnComprar y enlazar el evento click a la función registrarCompra.  
-    */
-   
+
+     /* 1-En esta función se deben capturar los elementos html: .carrusel, .seccionProducto, .seccionLogin. Para luego 
+     blanquear su contenido.*/
+    const carrusel = document.querySelector(".carrusel");
+    const seccionProducto = document.querySelector(".seccionProducto");
+    const seccionLogin = document.querySelector(".seccionLogin");
+    if (carrusel) carrusel.innerHTML = "";
+    if (seccionProducto) seccionProducto.innerHTML = "";
+    if (seccionLogin) seccionLogin.innerHTML = "";
+
+     /* 2-Se deberá capturar el elemento .vistaProducto.*/
+     const vistaProducto = document.querySelector(".vistaProducto");
+    if (!vistaProducto) return console.error("Elemento .vistaProducto no encontrado");
+     /* 3-Se deberá llamar a la función leerParametro para recuperar de la url el idProducto.*/
+     const idProducto = leerParametro();
+     if (!idProducto) return console.error("ID de producto no encontrado en la URL");
+     /* 4-Luego se deberán leer los datos del producto indentificado con el idProducto recuperado.*/
+     try {
+        const producto = await productosServices.listar(idProducto);
+        if (!producto) throw new Error("Producto no encontrado");
+    /* 5-Llamar a la función htmlVistaProducto.*/
+        const htmlProducto = htmlVistaProducto(
+            producto.id,
+            producto.nombre,
+            producto.descripcion,
+            producto.precio,
+            producto.imagen
+        );
+
+    /* 6-El resultado de la función deberá asignarse al elemento .vistaProducto capturado previamente.*/
+        vistaProducto.innerHTML = htmlProducto;
+
+     /* 7-Se deberá capturar el elemento html correspondiente al anchor btnComprar y enlazar el evento click a la función registrarCompra.*/
+        const btnComprar = document.querySelector("#btnComprar");
+        if (btnComprar) {
+            btnComprar.addEventListener("click", registrarCompra);
+        }
+    } catch (error) {
+        console.error("Error al cargar el producto:", error);
+    }
+
+     
 }
 
 function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
@@ -27,7 +59,25 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
      *   let cadena = `Hola, ${titulo} Claudia  en que podemos ayudarla`;
      *   
     */
-    
+    const html = `
+    <div class="imagen">
+        <img src="${imagen}" alt="producto">
+    </div>
+    <div class="texto">
+        <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
+
+        <p id="descripcionProducto">${descripcion}</p>
+
+        <p id="precioProducto">${precio}</p>
+
+    <div class="form-group">
+        <label for="cantidadProducto">Cantidad</label>
+        <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
+    </div>
+
+        <a id="btnComprar" >Comprar</a>
+    </div> `;
+    return html
 }
 function leerParametro(){
     // Captura el idProducto de la dirección URL enviada por la página que llama
@@ -57,6 +107,42 @@ function registrarCompra(){
      * 10-Finalmente emitimos una alerta con la leyenda "Compra finalizada."
      *     
      */
+
+    const session = getUsuarioAutenticado();
+    if (!session || !session.autenticado) {
+        alert("Debe iniciar sesión antes de realizar una compra.");
+        return;
+    }
+
+    // Obtener datos del usuario y producto
+    const idUsuario = session.idUsuario;
+    const emailUsuario = session.email;
+    const idProducto = document.querySelector(".producto-detalle").dataset.idproducto;
+    const nameProducto = document.querySelector("#nameProducto").textContent;
+    const cantidad = parseInt(document.querySelector("#cantidadProducto").value, 10);
+    const fecha = new Date().toISOString();
+
+    if (!idUsuario || !emailUsuario || !idProducto || !nameProducto || isNaN(cantidad)) {
+        alert("Error: datos incompletos para registrar la compra.");
+        return;
+    }
+
+    // Registrar la venta
+    ventasServices.crear({
+        idUsuario,
+        emailUsuario,
+        idProducto,
+        nameProducto,
+        cantidad,
+        fecha
+    })
+    .then(() => {
+        alert("Compra finalizada.");
+        location.replace("tienda.html");
+    })
+    .catch(error => {
+        console.error("Error al registrar la compra:", error);
+    });
     
     
 }
