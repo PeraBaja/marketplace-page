@@ -64,7 +64,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
         <img src="${imagen}" alt="producto">
     </div>
     <div class="texto">
-        <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
+        <h1 id="nameProducto" data-idProducto=${id}>${nombre}</h1>
 
         <p id="descripcionProducto">${descripcion}</p>
 
