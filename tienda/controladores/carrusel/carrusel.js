@@ -1,27 +1,39 @@
-const htmlCarrusel =
-
-`
+const htmlCarrusel = `
     <div class="slider-container">
         <div class="slide active">
             <img src="/img/slider/imagen1.png" alt="Imagen 1" style="width:100%; height:100%; object-fit:cover;">
+            <div class="text-overlay">
+                <h2>¡Gran Oferta!</h2>
+                <p>Hasta <strong>-30%</strong> en todos los relojes</p>
+            </div>
         </div>
         <div class="slide">
             <img src="/img/slider/imagen2.png" alt="Imagen 2" style="width:100%; height:100%; object-fit:cover;">
+            <div class="text-overlay">
+                <h2>Solo Hoy</h2>
+                <p><strong>Descuento Especial</strong> para ti</p>
+            </div>
         </div>
         <div class="slide">
             <img src="/img/slider/imagen3.png" alt="Imagen 3" style="width:100%; height:100%; object-fit:cover;">
+            <div class="text-overlay">
+                <h2>¡No te lo pierdas!</h2>
+                <p><strong>Hasta 40%</strong> de descuento en todos nuestros modelos</p>
+            </div>
         </div>
 
-        <button class="prev" ">&#10094;</button>
-        <button class="next" ">&#10095;</button>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
 
         <div class="dots">
-            <span class="dot active-dot" ></span>
-            <span class="dot" ></span>
-            <span class="dot" ></span>
+            <span class="dot active-dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </div>
 `
+
+
 
 
 
@@ -47,6 +59,7 @@ export async function Carrusel(){
     dot3.addEventListener('click', () => currentSlide(3));
 
     showSlides(slideIndex);
+    desplazamientoAutomatico();
 }
 function nextSlide(){
     changeSlide(1);
@@ -82,4 +95,7 @@ function showSlides(n) {
     
     slides[slideIndex-1].classList.add("active");
     dots[slideIndex-1].classList.add("active-dot");
+}
+function desplazamientoAutomatico() {
+    setInterval(() => changeSlide(1), 5000);
 }

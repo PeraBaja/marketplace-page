@@ -25,6 +25,7 @@
 .bg-dark {
     background-color: lightslategray !important;
     }
+
 .btn-warning {
     color: #1f2d3d;
     background-color: transparent;
@@ -61,4 +62,16 @@ border-color: lightslategray;
     cursor: auto;
     background-color: white;
     border-color: lightslategray;
+    }
+
+a {
+    color: lightslategray;
+    text-decoration: none;
+    background-color: transparent;
+    }
+
+a:hover {
+    color: red;
+    text-decoration: none;
+    background-color: transparent;
     }

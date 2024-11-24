@@ -23,6 +23,7 @@ export function RouterTienda(){
     }else if (hash === '#logout' ) {      
         
         setUsuarioAutenticado(false, -1);
+        sessionStorage.clear()
         location.replace("tienda.html");
 
     }else if (hash === '' ) {
