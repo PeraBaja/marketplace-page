@@ -28,11 +28,13 @@ img{
     padding: 3rem;
 }
 
-#nameProducto{
+#nombreProducto{
     width: 100%;
     margin: 2rem 0;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: bold;
+    color: #e85547;
+    
 }
 #descripcionProducto{
     margin: 2rem 0;
@@ -76,6 +78,6 @@ img{
 
 /* Hover en el botón */
 #btnComprar:hover {
-    background-color: #555352; 
+    background-color: #e85547; 
     transform: scale(1.05); 
 }
