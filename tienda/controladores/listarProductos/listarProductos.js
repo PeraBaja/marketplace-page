@@ -8,7 +8,7 @@ function htmlCategoria(id, categoria){
     /*Y ADEMAS REEMPLAZAR EL TEXTO Nombre de Categoría POR EL VALOR QUE LLEGA AL PARAMETRO CATEGORIA DE LA FUNCION*/
     /*POR ULTIMO, LA FUNCION DEVOLVERA LA CADENA RESULTANTE*/   
     const html = `
-        <div class="categoria" data-idCategoria="${id}">
+        <div class="categoria" id=${categoria} data-idCategoria="${id}">
             <h1 class="categoria">${categoria}</h1>
             <div class="productos">
                 <!-- Aca se listan los productos-->
