@@ -64,7 +64,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
         <img src="${imagen}" alt="producto">
     </div>
     <div class="texto">
-        <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
+        <p id="nombreProducto" data-idProducto=${id}>${nombre}</p>
 
         <p id="descripcionProducto">${descripcion}</p>
 
@@ -96,9 +96,9 @@ function registrarCompra(){
      * ejecución de la función.
      * 4-Si la propiedad autenticado es true la ejecución continua.
      * 5-En este punto se deben almacenar los datos necesario para registrar la venta.
-     * 5-Necesitamos idUsuario, emailUsuario, idProducto, nameProducto, cantidad y fecha.
+     * 5-Necesitamos idUsuario, emailUsuario, idProducto, nombreProducto, cantidad y fecha.
      * 6-Los dos primeros los extraemos del objeto session.
-     * 7-El resto de los datos los capturamos desde el objeto document utilizando los id: nameProducto, cantidadProducto. 
+     * 7-El resto de los datos los capturamos desde el objeto document utilizando los id: nombreProducto, cantidadProducto. 
      *   El idProducto lo recuperamos desde el atributo data-idproducto y a fecha la obtenemos desde la fecha del sistema con
      *   el objeto Date() de javascript.
      * 8-Una vez reunido todos los datos necesarios llamamos a la función ventasServices.crear pasando lo parámetros obtenidos. 
@@ -117,22 +117,32 @@ function registrarCompra(){
     // Obtener datos del usuario y producto
     const idUsuario = session.idUsuario;
     const emailUsuario = session.email;
-    const idProducto = document.querySelector(".producto-detalle").dataset.idproducto;
-    const nameProducto = document.querySelector("#nameProducto").textContent;
+    const idProducto = document.getElementById("nombreProducto").getAttribute("data-idproducto");
+
+    const nombreProducto = document.querySelector("#nombreProducto").textContent;
     const cantidad = parseInt(document.querySelector("#cantidadProducto").value, 10);
     const fecha = new Date().toISOString();
 
-    if (!idUsuario || !emailUsuario || !idProducto || !nameProducto || isNaN(cantidad)) {
+    if (!idUsuario || !emailUsuario || !idProducto || !nombreProducto || isNaN(cantidad)) {
         alert("Error: datos incompletos para registrar la compra.");
         return;
     }
-
+    
+    console.log({
+        idUsuario,
+        emailUsuario,
+        idProducto,
+        nombreProducto,
+        cantidad,
+        fecha
+    });
+    
     // Registrar la venta
     ventasServices.crear({
         idUsuario,
         emailUsuario,
         idProducto,
-        nameProducto,
+        nombreProducto,
         cantidad,
         fecha
     })
