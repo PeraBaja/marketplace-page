@@ -8,14 +8,17 @@ const htmlCategorias = `
         <div class="category-box category-2">
             <img src="/img/categorias/imagen2.png" alt="Categoría 2">
             <p>Gafas de Sol</p>
+            <p>Gafas de Sol</p>
         </div>
         <!-- Segunda fila -->
         <div class="category-box category-3">
             <img src="/img/categorias/imagen3.png" alt="Categoría 3">
+            <p>Brazaletes</p>
             <p>Brazalates</p>
         </div>
         <div class="category-box category-4">
             <img src="/img/categorias/imagen4.png" alt="Categoría 4">
+            <p>Collares</p>
             <p>Collares</p>
         </div>
     </div>
