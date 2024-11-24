@@ -133,7 +133,7 @@ async function  ingresar(e){
 
     setUsuarioAutenticado(true, id)
     mostrarUsuario(inputEmail.value)
-
+    window.location.href = ''
 }
 
 async function  registrarUsuario(e){
@@ -202,7 +202,9 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
     try {
         sessionStorage.setItem('autenticado', booleano)
         sessionStorage.setItem('idUsuario', idUsuario)
-        sessionStorage.setItem('email', inputEmail.value) 
+        if(inputEmail){
+            sessionStorage.setItem('email', inputEmail.value)
+        }
     }
     catch(error) {
         console.error('Error al tratar de guardar la información en el sessionStorage: ' + error)
