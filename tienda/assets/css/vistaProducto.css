@@ -11,6 +11,7 @@
 
 .vistaProducto .imagen{
     flex: 1 1 ;
+    margin: 1rem;
     
 }
 
@@ -24,7 +25,7 @@ img{
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    padding: 1rem;
+    padding: 3rem;
 }
 
 #nameProducto{
@@ -68,5 +69,13 @@ img{
     margin: 2rem 0;
     padding: 1.2rem 1.5rem;
     color:white;
-    background-color: black;
+    background-color: rgb(8, 8, 8);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover en el botón */
+#btnComprar:hover {
+    background-color: #555352; 
+    transform: scale(1.05); 
 }
