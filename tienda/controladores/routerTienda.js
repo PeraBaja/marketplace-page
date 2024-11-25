@@ -1,3 +1,4 @@
+import { categoriasProductos } from "./categoriasProductos/categoriasProductos.js"
 import { Carrusel } from "./carrusel/carrusel.js";
 import { listarProductos } from "./listarProductos/listarProductos.js";
 import { vistaProducto } from "./listarProductos/vistaProducto.js";
@@ -22,10 +23,11 @@ export function RouterTienda(){
     }else if (hash === '#logout' ) {      
         
         setUsuarioAutenticado(false, -1);
+        sessionStorage.clear()
         location.replace("tienda.html");
 
     }else if (hash === '' ) {
-        
+        categoriasProductos()
         Carrusel();
         listarProductos();
         

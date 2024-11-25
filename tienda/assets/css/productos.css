@@ -1,56 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap');
-.categorias h1 {
-    font-family: "Merriweather";
-    font-weight: 800;
-    font-size: 3rem;
-    padding: 2rem;
-    margin: 1rem 0 ;
-
-}
-
-.productos{
+/* Contenedor de productos */
+.productos {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 1rem;
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: center; 
+    padding: 1rem;
 }
 
-.item-producto{
-    flex: 0 0 20rem;
-    height: 30rem;
+
+/* Tarjeta del producto */
+.item-producto {
+    position: relative;
+    width: 300px; 
+    height: 400px; 
     display: flex;
     flex-direction: column;
+    justify-content: space-between; 
     align-items: center;
-    margin: 1rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    background: #f9f9f9; 
+    border-radius: 10px; 
     overflow: hidden;
-}   
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-.item-producto img{
-    display: block;
-    height: 60%;
-    width: 60%;
-    object-fit: contain;
+/* Efecto hover en la tarjeta */
+.item-producto:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); 
+}
+
+
+/* Imagen del producto */
+.item-producto img {
+    width: auto; 
+    max-width: 90%; 
+    max-height: 60%; 
+    object-fit: contain; 
     margin: 0 auto;
-    
-}
-.producto_nombre{
-    padding: 0 0.5rem ;
+    border-radius: 10px; 
 }
 
-.producto_precio{
-    margin: 1.5rem 0;
-    padding: 0 0.5rem ;
-    font-size: 2.5rem;
+
+/* Nombre del producto */
+.producto_nombre {
+    font-size: 20px; 
     font-weight: bold;
-    color:rgb(65, 65, 65);
+    margin-bottom: 10px;
+    text-align: center; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    width: 90%; 
 }
 
-.producto_enlace{
-    padding: 1rem 0.5rem ;
-    border-radius: 1rem;
-    background-color: black;
+/* Precio del producto */
+.producto_precio {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+/* Botón "Ver producto" */
+.producto_enlace {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: #ff6f61;
     color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover en el botón */
+.producto_enlace:hover {
+    background-color: #e85547; 
+    transform: scale(1.05); 
 }

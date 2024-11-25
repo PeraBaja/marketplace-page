@@ -1,5 +1,4 @@
-
-
+const htmlCategorias = `
 <div class="categories">
     <!-- Primera fila -->
     <a href="#RELOJES" class="category-box category-1">
@@ -20,3 +19,14 @@
         <p>Collares</p>
     </a>
 </div>
+`;
+
+export function categoriasProductos() {
+    let d = document;
+    let seccionCategorias = d.querySelector('.seccionCategorias'); 
+
+    // Insertamos el HTML de las categorías en el contenedor
+    if (seccionCategorias) {
+        seccionCategorias.innerHTML = htmlCategorias;
+    }
+}
